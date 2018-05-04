@@ -1,0 +1,60 @@
+/**
+ * 
+ */
+package com.guttv.pm.core.msg.queue;
+
+import java.io.Closeable;
+
+/**
+ * @author Peter
+ *
+ */
+public interface Consumer extends Closeable {
+	
+	/**
+	 * 设置消费者名称
+	 * @param name
+	 */
+	public void setName(String name);
+	
+	/**
+	 * 取得消费者的名称
+	 * @return
+	 */
+	public String getName();
+	
+	/**
+	 * 读取数据，从不同的类型中实现不同的子类
+	 * @return
+	 * @throws Exception
+	 */
+	public Object read() throws Exception;
+	
+	/**
+	 * 等待时间，如果没有数据，返回空 单位：毫秒
+	 * @param wait
+	 * @return
+	 * @throws Exception
+	 */
+	public Object read(int wait) throws Exception;
+	
+	/**
+	 * 库存数量
+	 * @return
+	 */
+	public int size();
+	
+	/**
+	 * 数据回退到退列尾
+	 * @param data
+	 * @throws Exception
+	 */
+	public void fallback(Object data) throws Exception;
+	
+	/**
+	 * 提交事务，标记处理完该数据
+	 * @param data
+	 * @throws Exception
+	 */
+	public void commit(Object data) throws Exception;
+}

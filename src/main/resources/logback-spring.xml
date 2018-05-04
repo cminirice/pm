@@ -1,0 +1,203 @@
+<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
+<configuration scan="true" scanPeriod="10 seconds">
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+	<appender name="pm" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/pm.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/pm-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<File>${LOG_PATH}/error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/error-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="task" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/task/task.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/task/task-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<appender name="task_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<File>${LOG_PATH}/task/task_error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/task/task_error-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="queue" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/queue/queue.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/queue/queue-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<appender name="queue_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<File>${LOG_PATH}/queue/queue_error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/queue_error-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="request" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/request/request.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/request/request-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="alarm" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/alarm/alarm.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/alarm/alarm-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{36}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="rpc" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/rpc/rpc.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/rpc/rpc-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{10}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<appender name="rpc_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<File>${LOG_PATH}/rpc/rpc_error.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/rpc_error-%d{yyyyMMdd}.log.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>2</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{10}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+
+
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout name="StandardFormat" class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>[%-4level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger{10}] - %msg%n</Pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="org.apache.zookeeper" level="WARN" />
+	<logger name="org.apache.curator" level="WARN" />
+	<logger name="org.apache.jasper.servlet.JspServlet" level="OFF"/>
+
+    <logger name="request" level="DEBUG" additivity="false">
+        <appender-ref ref="request"/>
+    </logger>
+    <logger name="queue" level="DEBUG" additivity="false">
+        <appender-ref ref="queue"/>
+        <appender-ref ref="queue_error"/>
+    </logger>
+    <logger name="task" level="DEBUG" additivity="true">
+        <appender-ref ref="task"/>
+        <appender-ref ref="task_error"/>
+    </logger>
+    <logger name="rpc" level="DEBUG" additivity="false">
+        <appender-ref ref="rpc"/>
+        <appender-ref ref="rpc_error"/>
+    </logger>
+    <logger name="alarm" level="DEBUG" additivity="false">
+        <appender-ref ref="alarm"/>
+    </logger>
+    
+	<root level="INFO">
+		<appender-ref ref="pm" />
+		<appender-ref ref="CONSOLE" /> <!-- 控制台输出 -->
+		<appender-ref ref="error" />
+	</root>
+</configuration>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- comID属性是必须字段，唯一标记一组任务 -->
+<regist comID="word-v1.0">
+<!-- 建议一个注册文件中只有一个task节点，不是必须的。这里的一组任务共同安装、卸载 -->
+	<com>
+		<!--必填值。 组件类 -->
+		<class>test.vod.core.task.SplitLog</class>
+		<!-- 系统自动调用的方法，如果是继承自 AbstractTask 类，不用填此方法，needRead为true时，该方法必须有一个Object参数，
+		needWrite为true时，该方法可以有一个返回值 -->
+		<method>dispose</method>
+		<!-- 必填值。方法执行类型，目前支持 cycle、once 区分大小写-->
+		<runType>cycle</runType>
+		<!-- 组件的英文名称，如果不填的话，默认为类的名称简写 -->
+		<name>splitlog</name>
+		<!-- 组件的中文名称，原则上需要填，尽量控制在六字以内，默认为name值 -->
+		<cn>分隔</cn>
+		<!-- 暂不支持该属性，默认为单线程执行 -->
+		<threadNum>1</threadNum>
+		<!-- 组件状态，如果为false,注册时将不被实例化验证 -->
+		<run>false</run>
+		<!-- 默认为false，保存流程时，验证如果需要读的，就得有连线进入；如果需要写，就需要有连线出。 -->
+		<needRead>true</needRead>
+		<needWrite>true</needWrite>
+		<!-- 定义读队列的类型 native://：本地队列，zk:// ：zookeeper:// ,rabbit:// :rabbit -->
+		<queueType>native://</queueType>
+		<!-- 最多只能有一个receive节点。如果为空，系统默认任务名称为队列名称（queueType+name确定队列名称）。系统会自动转小写，如果该值配置，queueType值无效 ；needRead如果为false,本值无效-->
+		<receive>native://test/queue/splitlog</receive>
+		<!-- 可以有多个dispatch节点，配置流程时不用该节点。发送的队列不需要定义，页面画流程时自动填补，如果needWrite为false，不填补该值 -->
+		<dispatch></dispatch>
+		<!-- 功能的描述信息 方便画图时查看 -->
+		<description><![CDATA[功能描述信息]]></description>
+		<!-- 开发配置，不能在界面修改 如果有时间类型的属性，格式为 yyyyMMddHHmmss-->
+		<!-- 该部分属性会赋值给任务对象，如果组件类是AbstractTask的子类，此部分属性就会赋值给组件类 -->
+		<dpros>
+			<!-- 分布式锁路径 用zookeeper实现 -->
+			<pro name="singleLockPath" cn="分布式锁路径"></pro>
+			<!-- 消息队列的最大深度，需要写操作的组件用到，默认50000 -->
+			<pro name="maxDepth" cn="队列最大深度">50000</pro>
+			<!-- 需要读操作的组件可以配置该属性 从队列里读数据的超时时间 默认5000，具体情况根据队列的实际情况而定，如果是阻塞MQ，该值无效 -->
+			<!-- 该值不易太大，超时时会等待下次循环 -->
+			<pro name="readTimeout" cn="读超时时间">5000</pro>
+			<!-- cycle类型的组件需要此属性，任务的执行周期 默认0 -->
+			<pro name="period" cn="循环周期">1000</pro>
+			<!-- cycle类型的组件，配置 singleLockPath 属性时用到此属性，没有获取分布式锁时的休眠时间 -->
+			<pro name="lockRetryTime" cn="重获锁周期">300000</pro>
+		</dpros>
+		<!-- 可以在界面修改的属性 ，格式为 yyyyMMddHHmmss-->
+		<!-- 该部分属性会赋值给组件对象，如果组件类是AbstractTask的子类，此部分属性就会赋值给任务对象 -->
+		<pros>
+			<!-- 属性name不能为空，如果cn为空，默认设值为name的值 -->
+			<pro name="maxLenth" cn="">100</pro>
+			<pro name="readTimeout" cn="">10000</pro>
+		</pros>
+	</com>
+	<com>
+		<class>com.guttv.pm.frame.task.WordCreator</class>
+		<runType>cycle</runType>
+		<cn>字符串工厂</cn>
+		<needRead>false</needRead>
+		<needWrite>true</needWrite>
+		<dispatch rule="DATA.equals('com')">native://com</dispatch>
+		<dispatch rule="DATA.equals('guttv')">native://guttv</dispatch>
+		<dpros>
+			<pro name="period" cn="周期">100</pro>
+			<pro name="status" >1</pro>
+		</dpros>
+		<pros>
+			<pro name="age" cn="年龄">100</pro>
+			<pro name="name" cn="名字">peter</pro>
+		</pros>
+	</com>
+	<com>
+		<class>com.guttv.pm.frame.task.ComWordCount</class>
+		<runType>cycle</runType>
+		<cn>统计COM</cn>
+		<needRead>true</needRead>
+		<needWrite>true</needWrite>
+		<queueType>native://</queueType>
+		<receive>native://com</receive>
+		<pros>
+			<pro name="period" cn="周期">100</pro>
+			<pro name="maxCount" >peter</pro>
+		</pros>
+	</com>
+	<com>
+		<class>com.guttv.pm.frame.task.GuttvWordCount</class>
+		<runType>cycle</runType>
+		<cn>统计GUTTV</cn>
+		<needRead>true</needRead>
+		<needWrite>true</needWrite>
+		<queueType>native://</queueType>
+		<receive>native://guttv</receive>
+		<pros>
+			<pro name="pause" cn="是否暂停">false</pro>
+			<pro name="filePath" cn="文件路径">/data/pm</pro>
+			<pro name="filterWord" cn="过滤字符">shit</pro>
+			<pro name="period" cn="周期">100</pro>
+		</pros>
+	</com>
+</regist>
