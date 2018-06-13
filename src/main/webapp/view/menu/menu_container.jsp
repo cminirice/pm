@@ -52,15 +52,15 @@
 			</c:if>
 			<!-- 
 			<!-- -->
-			<dd>
+			<!--dd>
 				<a href="${base}/server/list" target="mainFrame">服务器列表</a>
-			</dd>
+			</dd-->
 			<!-- dd>
 				<a href="${base}/plugin/list" target="mainFrame">插件列表</a>
 			</dd-->
-			<dd>
+			<!--dd>
 				<a href="${base}/script/list" target="mainFrame">脚本列表</a>
-			</dd>
+			</dd-->
 			<!-- dd>
 				<a href="${base}/containerVersion/list" target="mainFrame">容器程序列表</a>
 			</dd-->
